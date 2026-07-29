@@ -1,0 +1,12 @@
+# PostgreSQL veritabanı bağlantısı için
+psycopg2-binary
+
+# Veri temizleme, dönüştürme ve analiz işlemleri için
+pandas
+
+# Python ile veritabanı arasında SQL köprüsü kurmak için
+sqlalchemy
+
+# AI API'leri ve dış servislere istek atmak için
+requests
+
