@@ -1,0 +1,10 @@
+# Gizli şifre dosyası (GitHub'a ASLA gitmesin)
+.env
+
+# Python önbellek dosyaları
+__pycache__/
+*.pyc
+
+# Sanal ortam
+venv/
+.venv/
