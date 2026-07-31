@@ -1,0 +1,23 @@
+# 🧽 Endüstriyel Sünger Üretimi - Canlı Log & Akıllı Anomali Tespit Motoru
+
+Bu proje, bir endüstriyel sünger üretim hattından gelen canlı sensör ve üretim loglarını **olay tabanlı (event-driven)** bir mimariyle işleyen, veri temizleme süreçlerinden geçiren, PostgreSQL veritabanına kaydeden ve **Groq AI (LLM)** entegrasyonu ile olası üretim anomalilerini tespit edip otomatik e-posta bildirimi gönderen uçtan uca bir veri mühendisliği sistemidir.
+
+---
+
+## 🏗️ Proje Mimarisi ve Veri Akışı
+
+```text
+[ Log Üretici (Producer) ] 
+          │
+          ▼ (Canlı Akış / Event Stream)
+[ Redpanda / Kafka Broker ]
+          │
+          ▼
+[ Veri Temizleme & Dönüştürme Motoru (Consumer) ]
+          │
+  ┌───────┴────────────────────────┐
+  ▼                                ▼
+[ PostgreSQL Veritabanı ]    [ Groq AI Anomali Analizci ]
+  (Metabase Görselleştirme)        │
+                                   ▼
+                             [ Otomatik E-Posta Bildirimi 📧 ]
