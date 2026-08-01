@@ -1,50 +1,25 @@
 # 🧽 Smart Live Log Engine
+> **Endüstriyel Form Sünger Üretim Hattı İçin Canlı Log & Groq AI Analiz Sistemi**
 
-> **Real-Time AI-Powered Industrial Sponge Production Log & Anomaly Processing Pipeline**
-
-[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Redpanda](https://img.shields.io/badge/Redpanda-Kafka--Compatible-FA3B00?style=for-the-badge&logo=redpanda&logoColor=white)](https://redpanda.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Groq AI](https://img.shields.io/badge/Groq-LLaMA--3-F34B21?style=for-the-badge&logo=openai&logoColor=white)](https://groq.com/)
-[![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.style=for-the-badge)](LICENSE)
-
-**Smart Live Log Engine**, endüstriyel blok sünger (polyurethane foam) üretim hatlarından anlık olarak akar tıkın telemetri ve log verilerini toplayan, **Redpanda** üzerinde yüksek performansla kuyruklayan, **Groq LLaMA-3 AI** modelleri ile anormallikleri saniyeler içinde tespit edip **PostgreSQL** veritabanına işleyen modern bir veri mühendisliği hattıdır.
+Bu proje, form sünger (polyurethane) üretim tesislerindeki sensör ve makine loglarını gerçek zamanlı olarak toplayan, **Redpanda** üzerinden akışa alan, **Groq API** ile yapay zeka tabanlı anomali analizi gerçekleştiren ve verileri **PostgreSQL** veritabanına kaydeden uçtan uca bir canlı veri mimarisidir.
 
 ---
 
-## 🌟 Öne Çıkan Özellikler
-
-- ⚡ **Gerçek Zamanlı Log Akışı:** Yüksek frekansta üretim sensör verisi (yoğunluk, blok sıcaklığı, reaksiyon basıncı, kimyasal karışım oranları) üretimi ve akışı.
-- 🦏 **Redpanda Event Bus:** Kafka uyumlu, düşük gecikmeli (low-latency) ve yüksek bant genişlikli olay akış mimarisi.
-- 🤖 **Groq AI Anomali Tespiti:** Akıştaki potansiyel üretim hatalarını (örneğin: aşırı reaksiyon ısısı, yoğunluk sapması) Groq API üzerinden LLM ile anlık analiz etme.
-- 🗄️ **İkili Depolama & Analiz:** Ham logların ve AI analiz çıktılarının ilişkisel veritabanı (PostgreSQL) üzerinde sorgulanabilir formatta saklanması.
-- 🐳 **Tamamen Konteynerize:** Docker Compose ile tek komutla ayağa kaldırılabilen mikroservis yapısı.
-
----
-
-## 🏗️ Sistem Mimarisi
+## 🏗️ Sistem Mimarisi ve Veri Akışı
 
 ```mermaid
-graph TD
-    subgraph Üretim Sahası
-        A[log_uretici.py<br/><i>Sünger Üretim Sensörleri</i>]
-    end
+flowchart LR
+    A[log_uretici.py<br/><i>Sünger Log Üreticisi</i>] -->|JSON Stream| B((Redpanda<br/>Event Broker))
+    B -->|Log Akışı| C[consumer.py<br/><i>Veri Tüketici Servisi</i>]
+    C -->|Anomali Tespit/Sorgu| D[Groq API<br/><i>LLM Analiz Motoru</i>]
+    C -->|Log & Analiz Kaydı| E[(PostgreSQL<br/>Database)]
 
-    subgraph Mesaj Kuyruğu
-        B[Redpanda Broker<br/><i>Topic: sponge-production-logs</i>]
-    end
 
-    subgraph İşleme & AI
-        C[Log Consumer Engine<br/><i>Python Service</i>]
-        D[Groq API<br/><i>LLaMA-3 Anomali Analizi</i>]
-    end
-
-    subgraph Veri Depolama
-        E[(PostgreSQL DB<br/><i>Telemetri & Analiz Logları</i>)]
-    end
-
-    A -->|JSON Log Stream| B
-    B -->|Subscribe| C
-    C <-->|Anomali Sorgusu| D
-    C -->|Persist Logs & Insights| E
+{
+  "timestamp": "2026-08-01 22:40:00",
+  "blok_id": "SPG-20260801-089",
+  "yoğunluk_kg_m3": 28.5,
+  "reaksiyon_sicakligi_c": 143.2,
+  "karisim_basinci_bar": 3.8,
+  "durum": "ANOMALI_RISKI"
+}
