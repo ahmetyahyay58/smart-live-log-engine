@@ -193,7 +193,7 @@ def ai_otonom_analiz():
             rapor = response_message.content
             
             print("\n==================================================")
-            print("🤖 AI KÖK NEDEN VE TEŞHİS RAPORU")
+            print("🤖 AI KÖK NEDEN VE TEŞHİS RAPORUuu")
             print("==================================================\n")
             print(rapor)
             print("\n==================================================")
