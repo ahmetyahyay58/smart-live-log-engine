@@ -15,11 +15,3 @@ flowchart LR
     C -->|Log & Analiz Kaydı| E[(PostgreSQL<br/>Database)]
 
 
-{
-  "timestamp": "2026-08-01 22:40:00",
-  "blok_id": "SPG-20260801-089",
-  "yoğunluk_kg_m3": 28.5,
-  "reaksiyon_sicakligi_c": 143.2,
-  "karisim_basinci_bar": 3.8,
-  "durum": "ANOMALI_RISKI"
-}
